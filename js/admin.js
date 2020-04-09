@@ -138,11 +138,22 @@ function laadMedewerkers() {
         var inhoudDB = JSON.parse(this.responseText);
         var string1 = "";
         for (x=0; x<inhoudDB.length; x++) {
+
+            var medewerkerimage = "qien-logo-purple.svg";
+            if (inhoudDB.afbeelding === null) {
+                console.log(inhoudDB[x].afbeelding);
+            } else {
+                console.log(inhoudDB[x].afbeelding);
+                medewerkerimage = "medewerkers/" + inhoudDB[x].afbeelding;
+                if (medewerkerimage == "medewerkers/null") {
+                    medewerkerimage = "qien-logo-purple.svg";
+                }
+            }
             string1 += `<div class="medewerkers-inner">
             <div class="medewerker-item-outer-flex">
                 <div onclick = "openGebruikerTab('admin-dashboard-medewerker-single'); laadSingleMedewerker(${inhoudDB[x].id})" class="medewerkers-item-flex">
                     <div class="medewerkers-content-wrapper">
-                        <div class="gebruiker-img-circle"></div>
+                        <div class="gebruiker-img-circle" style= "background-image: url('../img/${medewerkerimage}')"></div>
                     </div>
                     <div class="medewerkers-content-wrapper medewerker-name-wrapper">
                         <div class="paragraph-content">${inhoudDB[x].voornaam}</div>
@@ -304,7 +315,7 @@ function laadSingleMedewerker(id) {
                             <div class="medewerkers-content-wrapper medewerker-klant-wrapper">
                                 <div class="label label-small">Klant</div>
                             </div>
-                            <div class="medewerkers-content-wrapper medewerker-maand-wrapper">
+                            <div class="medewerkers-content-wrapper maand-wrapper">
                                 <div class="label label-small">Maand</div>
                             </div>
                             <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
@@ -405,6 +416,10 @@ function laadSingleMedewerkerWijzigen(id) {
                         <label for="gekoppelde-opdrachtgever-change" class="label form-label">Opdrachtgever</label>
                         <select id="koppel-medewerker-opdrachtgever-change" name="koppel-medewerker-opdrachtgever-change" data-name="Koppel-medewerker-opdrachtgever-change" required="" class="text-field select-field">
                     </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="image-change" class="label form-label">Afbeelding</label>
+                        <input type="text" class="text-field" maxlength="256" name="image" data-name="Image-change" id="image-change" required="" value=${inhoudDB.afbeelding}>
                     </div>
                 </div>
             </div>
@@ -750,6 +765,18 @@ function laadUrendeclaraties() {
             // var statusNaam = inhoudDB[x].status;
             // var statusNaamCamelCase = statusNaam.toLowerCase();
 
+
+            var medewerkerimage = "qien-logo-purple.svg";
+            if (inhoudDB[x].medewerker.afbeelding === null) {
+                console.log(inhoudDB[x].medewerker.afbeelding);
+            } else {
+                console.log(inhoudDB[x].medewerker.afbeelding);
+                medewerkerimage = "medewerkers/" + inhoudDB[x].medewerker.afbeelding;
+                if (medewerkerimage == "medewerkers/null") {
+                    medewerkerimage = "qien-logo-purple.svg";
+                }
+            }
+
             let totaalAantalUrenOpdracht = 0;
             let totaalAantalUrenOverwerk = 0;
             let totaalAantalUrenVerlof = 0;
@@ -773,7 +800,7 @@ function laadUrendeclaraties() {
                 <div class="medewerker-item-outer-flex">
                     <div onclick = "openGebruikerTab('admin-dashboard-urenformulier-single');laadSingleUrendeclaratie('${inhoudDB[x].id}')" class="medewerkers-item-flex">
                         <div class="medewerkers-content-wrapper">
-                            <div class="gebruiker-img-circle"></div>
+                            <div class="gebruiker-img-circle" style= "background-image: url('../img/${medewerkerimage}')"></div>
                         </div>
                         <div class="medewerkers-content-wrapper medewerker-name-wrapper">
                             <div class="paragraph-content">${inhoudDB[x].medewerker.voornaam} ${inhoudDB[x].medewerker.achternaam}</div>
@@ -865,6 +892,37 @@ function laadSingleUrendeclaratie(id) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
         var inhoudDB = JSON.parse(this.responseText);
+        var string2 = `
+        <table id="tblData" style="text-align:center;display:none">
+        <tr>
+            <td>${inhoudDB.medewerker.voornaam} ${inhoudDB.medewerker.achternaam}</td>
+        </tr>
+        <tr>
+            <th>Datum</th>
+            <th>Opdracht</th>
+            <th>Overwerk</th>
+            <th>Verlof</th>
+            <th>Ziek</th>
+            <th>Training</th>
+            <th>Overig</th>
+            <th>Verklaring overig</th>
+        </tr>
+        `
+        for (y = 0; y < inhoudDB.gewerkteDagen.length; y++) {
+            string2+= `
+            <tr>
+            <td>${inhoudDB.gewerkteDagen[y].dagnr} ${inhoudDB.maandNaam}</td>
+            <td>${inhoudDB.gewerkteDagen[y].aantalUrenOpdracht}</td>
+            <td>${inhoudDB.gewerkteDagen[y].aantalUrenOverwerk}</td>
+            <td>${inhoudDB.gewerkteDagen[y].aantalUrenVerlof}</td>
+            <td>${inhoudDB.gewerkteDagen[y].aantalUrenZiek}</td>
+            <td>${inhoudDB.gewerkteDagen[y].aantalUrenTraining}</td>
+            <td>${inhoudDB.gewerkteDagen[y].aantalUrenOverig}</td>
+            <td>${inhoudDB.gewerkteDagen[y].verklaringOverig}</td>
+            </tr>
+            `
+        }
+
         var string1 = 
             `<div class="main-header-flex">
                 <div class="gebruiker-header">
@@ -875,6 +933,7 @@ function laadSingleUrendeclaratie(id) {
                 </div>
                 </div>
                     <div class="content-sections-wrapper">
+                        <div id="urentabel"></div>
                          <div class="urendeclaratie-flex">
                             <div class="urendeclaratie-inhoud-wrapper">
                                 <div class="rows-wrapper">
@@ -928,6 +987,9 @@ function laadSingleUrendeclaratie(id) {
                                         <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
                                             <div class="paragraph-content">${inhoudDB.gewerkteDagen[y].aantalUrenOverig}</div>
                                         </div>
+                                        <div class="medewerkers-content-wrapper medewerker-verklaring-wrapper">
+                                            <div class="paragraph-content">${inhoudDB.gewerkteDagen[y].verklaringOverig}</div>
+                                        </div>
                                         </div>
                                     </div>`;
             }
@@ -939,7 +1001,7 @@ function laadSingleUrendeclaratie(id) {
                             <div class="uren-declaratie-side-info-item">
                                 <div class="label">Mogelijke acties</div>
                                 <div class="acties-link-text">Openzetten</div>
-                                <div class="acties-link-text">Andere acties?</div>
+                                <div class="acties-link-text" onclick="exportTableToExcel('tblData', 'urenformulier')">Exporteer als excel bestand</div>
                             </div>
                             <div class="uren-declaratie-side-info-item">
                                 <div class="label">Berichten bij deze urendeclaratie</div>
@@ -969,6 +1031,7 @@ function laadSingleUrendeclaratie(id) {
                             </div>
                         </div>`;
         document.getElementById("admin-dashboard-urenformulier-single").innerHTML = string1;
+        document.getElementById("urentabel").innerHTML = string2;
     }
     xhr.open("GET","https://api.qienurenapp.privatedns.org:9100/api/urendeclaraties/" + id, true);
     xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
@@ -1157,6 +1220,7 @@ function changeMedewerker(id) {
         email : document.getElementById('email-change').value,
         adres : document.getElementById('adres-change').value,
         plaats : document.getElementById('plaats-change').value,
+        afbeelding : document.getElementById('image-change').value,
         telefoonNummer : document.getElementById('telefoon-change').value,
      // wachtwoordHash : 
     };
@@ -1225,4 +1289,37 @@ function addOGToMW(id) {
     xhr.open("PUT", url, true);
     xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
     xhr.send();
+}
+
+
+// EXCEL functie emily
+function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';             // content type --> this saves as an Excel file
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');  // replace all spaces (global) for %20 (which is a space in URL)
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';     //xls stands for Excel Spreadsheet 
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
 }
