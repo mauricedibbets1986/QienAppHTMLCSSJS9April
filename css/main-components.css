@@ -199,6 +199,10 @@ h3 {
     background-image: url(../img/delete-color.svg);
 }
 
+.acties-link-text {
+    cursor: pointer;
+}
+
 /*COLORS*/
 .background-main {
     background-color: #9d3ff3;
@@ -523,7 +527,7 @@ h3 {
 }
 
 .medewerkers-content-wrapper.medewerker-status-lang-wrapper {
-    width: 135px;
+    width: 210px;
 }
 
 .medewerkers-content-wrapper.medewerker-email-wrapper {

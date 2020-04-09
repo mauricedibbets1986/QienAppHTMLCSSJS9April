@@ -44,7 +44,7 @@ function checkLogin() {
 }
 
 // Active page
-if (window.location.href.indexOf("medewerker/dashboard") > -1) {
+if (window.location.href.indexOf("dashboard") > -1) {
     document.getElementById("medewerker-dashboard-link").classList.add("current-nav-link");
 }
 
@@ -127,12 +127,12 @@ xhr.onreadystatechange = function(){
     string1 += `
     <!--  MEDEWERKER NAVBAR  -->
     <div class="navbar">
-        <div class="nav-containerr">
+        <div class="nav-container">
             <div class="content-flex"><a href="#" class="aside-wrapper aside-logo"><img src="../img/qien-logo-purple.svg" alt="Qien logo purple" class="logo"></a>
                 <div class="main-content-wrapper">
                     <nav role="navigation" class="nav-menu">
                         <div class="nav-main-links-inner left">
-                            <a href="../medewerker/dashboard.html" class="nav-link">Dashboard</a>
+                            <a id="medewerker-dashboard-link" href="../medewerker/dashboard.html" class="nav-link">Dashboard</a>
                             <a href="../medewerker/berichten.html" class="nav-link">Berichten</a>
                         </div>
                     </nav>
@@ -168,7 +168,7 @@ xhr.onreadystatechange = function(){
                     <div id="medewerkers-content" class="content-wrapper">
                         <div class="main-header-flex">
                             <div class="gebruiker-header">
-                                <div class="gebruiker-single-img-circle"></div>
+                                <div id="gebruiker-single-img-circle-dashboard" class="gebruiker-single-img-circle"></div>
                                 <h1 class="h1 no-margin">${inhoudDB.voornaam} ${inhoudDB.achternaam}</h1>
                             </div>
                             <div onclick="openGebruikerPopup('gebruiker-zichzelf-aanpassen')" class="circle-button"></div>
@@ -267,7 +267,7 @@ xhr.onreadystatechange = function(){
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="urendeclaraties-short-outer" class="medewerker-item-outer-flex">
+                                    <div id="urendeclaraties-short-outer" class="medewerker-outer">
                                         <div class="medewerkers-item-flex">
                                             <div class="medewerkers-content-wrapper maand-wrapper">
                                                 <div class="paragraph-content">Februari</div>
@@ -347,7 +347,7 @@ xhr.onreadystatechange = function(){
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="alle-uren-declaraties" class="medewerker-item-outer-flex">
+                                    <div id="alle-uren-declaraties" class="medewerker-outer">
                                         <div class="medewerkers-item-flex">
                                             <div class="medewerkers-content-wrapper maand-wrapper">
                                                 <div class="paragraph-content">Februari</div>
@@ -498,6 +498,15 @@ xhr.onreadystatechange = function(){
     laadUrendeclaratiesKort(inhoudDB.id);
     laadUrendeclaratiesAlles(inhoudDB.id);
     laadSingleMedewerkerWijzigen(inhoudDB.id);
+
+    if (inhoudDB.afbeelding == null) {
+        console.log(inhoudDB.afbeelding);
+        document.getElementById("gebruiker-single-img-circle-dashboard").style.backgroundImage = "url('../img/qien-logo-purple.svg')";
+    } else {
+        console.log(inhoudDB.afbeelding );
+        document.getElementById("gebruiker-single-img-circle-dashboard").style.backgroundImage = "url('../img/medewerkers/" + inhoudDB.afbeelding + "'";
+    }
+
     }
 xhr.open("GET", "https://api.qienurenapp.privatedns.org:9100/api/gebruikers/me/", true);
 xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
@@ -531,6 +540,7 @@ function laadUrendeclaratiesKort(id) {
             totaalAantalUren = totaalAantalUrenOpdracht + totaalAantalUrenOverwerk + totaalAantalUrenVerlof + totaalAantalUrenZiek + totaalAantalUrenTraining + totaalAantalUrenOverig;
 
             string1 += `
+            <div class="medewerkers-inner">
             <div class="medewerkers-item-flex" onclick="laadSingleUrendeclaratie(${inhoudDB[x].id}); openGebruikerTab('uren-single-content')">
                 <div class="medewerkers-content-wrapper maand-wrapper">
                     <div class="paragraph-content">${inhoudDB[x].maandNaam}</div>
@@ -560,9 +570,11 @@ function laadUrendeclaratiesKort(id) {
                     <div class="paragraph-content">${inhoudDB[x].status}</div>
                 </div>
             </div>
+            </div>
             `;
         }
         document.getElementById("urendeclaraties-short-outer").innerHTML = string1;
+
     }
     xhr.open("GET", "https://api.qienurenapp.privatedns.org:9100/api/urendeclaraties/metmedewerkerid/" + id, true);
     xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
@@ -633,11 +645,13 @@ function laadUrendeclaratiesAlles(id) {
     xhr.send();
 }
 
-
+var mijnUrendeclaratie;
 function laadSingleUrendeclaratie(id) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
         var inhoudDB = JSON.parse(this.responseText);
+        mijnUrendeclaratie = inhoudDB;
+        console.table(inhoudDB);
         var string1 = 
             `<div class="main-header-flex">
                 <div class="gebruiker-header">
@@ -730,7 +744,7 @@ function laadSingleUrendeclaratie(id) {
                         <div class="uren-declaratie-side-info-wrapper">
                             <div class="uren-declaratie-side-info-item">
                                 <div class="label">Mogelijke acties</div>
-                                <div class="acties-link-text">Versturen</div>
+                                <div class="acties-link-text" onclick="stuurTerGoedkeuring(${inhoudDB.id})">Versturen</div>
                             </div>
                             <div class="uren-declaratie-side-info-item">
                                 <div class="label">Berichten bij deze urendeclaratie</div>
@@ -889,4 +903,39 @@ function changeMedewerker(id) {
         closeGebruikerPopup();
     }
     xhr.send(json);
+}
+
+
+
+//MICHIEL
+function stuurTerGoedkeuring ( id ){
+    var xhr = new XMLHttpRequest();
+   
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == "200") {
+           statusWijzigen(mijnUrendeclaratie);
+            }
+        }
+    xhr.open("GET", "https://api.qienurenapp.privatedns.org:9100/api/email/" + id + "/", true);
+    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+    //xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+    xhr.send();
+}
+
+function statusWijzigen ( mijnUrendeclaratie ){
+    mijnUrendeclaratie.status = "TER_GOEDKEURING";
+    var udec = JSON.stringify(mijnUrendeclaratie);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == "200") {
+
+        } 
+        laadUrendeclaratiesAlles();
+        laadUrendeclaratiesKort();
+        laadSingleUrendeclaratie();
+    }
+    xhr.open("PUT", "https://api.qienurenapp.privatedns.org:9100/api/urendeclaraties/", true);
+    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+    xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+    xhr.send(udec);
 }
