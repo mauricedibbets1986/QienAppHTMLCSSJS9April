@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Admin Dashboard</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+    <!--  CSS LINKS HERE  -->
+    <link href="../css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="../css/main-components.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="app-wrapper">
+
+        <!--  ADMIN NAVBAR  -->
+        <div class="navbar">
+            <div class="nav-containerr">
+                <div class="content-flex"><a href="#" class="aside-wrapper aside-logo"><img src="../img/qien-logo-purple.svg" alt="Qien logo purple" class="logo"></a>
+                    <div class="main-content-wrapper">
+                        <nav role="navigation" class="nav-menu">
+                            <div class="nav-main-links-inner left">
+                                <a id="admin-dashboard-link" href="../admin/dashboard.html" class="nav-link">Dashboard</a>
+                                <a id="admin-profiel-link" href="../admin/profiel.html" class="nav-link">Profiel</a>
+                                <a id="admin-berichten-link" href="../admin/berichten.html" class="nav-link">Berichten</a>
+                            </div>
+                            <div class="nav-main-links-inner right">
+                                <div id="nav-toevoegen-dropdown" class="nav-dropdown">
+                                    <div onclick="openDropdown()" class="nav-dropdown-toggle">
+                                        <div class="inline-link">Toevoegen</div>
+                                        <div class="nav-dropdown-dots-flex">
+                                            <div class="nav-dropdown-dot"></div>
+                                            <div class="nav-dropdown-dot"></div>
+                                            <div class="nav-dropdown-dot"></div>
+                                        </div>
+                                    </div>
+                                    <nav id="nav-dropdown-toevoegen" class="nav-dropdown-list">
+                                        <a href="#" class="nav-dropdown-link">Urendeclaraties</a>
+                                        <a onclick="openGebruikerPopup('admin-gebruiker-toevoegen'); AddMedewerkerLaadOpdrachtgeversSelect()" href="#" class="nav-dropdown-link">Medewerker</a>
+                                        <a onclick="openGebruikerPopup('admin-opdrachtgever-toevoegen')" href="#" class="nav-dropdown-link">Opdrachtgever</a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="side-content-wrapper nav-side-content-wrapper">
+                        <div class="nav-side-links-flex">
+                            <div class="circle-button small-circle-button edit"></div>
+                            <div class="circle-button small-circle-button edit"></div>
+                            <div class="circle-button small-circle-button edit"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  MAIN CONTENT OUTER  -->
+        <div class="main-outer-wrapper">
+            <div class="content-flex">
+            
+                <!--  ASIDE ADMIN TABS/LINKS  -->
+                <aside class="aside-wrapper">
+                    <div class="aside-links-wrapper">
+                        <a id="aside-admin-medewerkers" onclick="openGebruikerTab('admin-dashboard-medewerkers'); asideActive(this)" class="aside-link-block"></a>
+                        <a id="aside-admin-uren" onclick="openGebruikerTab('admin-dashboard-uren'); asideActive(this)" class="aside-link-block uren-aside-link"></a>
+                        <a id="aside-admin-opdrachtgevers" onclick="openGebruikerTab('admin-dashboard-opdrachtgevers'); asideActive(this)" class="aside-link-block opdrachtgevers-aside-link"></a>
+                    </div>
+                </aside>
+
+                <!--  MAIN CONTENT INNER  -->
+                <div class="main-content-wrapper">
+                    <div class="main-container">
+                        <div class="main-content-wrapper">
+                            <div class="main-container">
+
+                                <!-- Dashboard startscherm -->
+                                <div id="admin-dashboard-medewerkers" class="content-wrapper">
+                                    <div class="main-header-flex">
+                                        <div class="gebruiker-header">
+                                            <h1 class="h1 no-margin">Medewerkers</h1>
+                                        </div>
+                                        <div onclick="openGebruikerPopup('admin-gebruiker-toevoegen'); AddMedewerkerLaadOpdrachtgeversSelect()" class="circle-button add-button"></div>
+                                    </div>
+                                    <div class="content-sections-wrapper">
+                                        <div class="content-section">
+                                            <div class="labels-wrapper">
+                                                <div class="uren-declaraties-flex">
+                                                    <div class="medewerkers-content-wrapper"></div>
+                                                    <div class="medewerkers-content-wrapper medewerker-name-wrapper">
+                                                        <div class="label label-small">Naam</div>
+                                                    </div>
+                                                    <div class="medewerkers-content-wrapper medewerker-klant-wrapper">
+                                                        <div class="label label-small">Klant</div>
+                                                    </div>
+                                                    <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                        <div class="label label-small">Mei</div>
+                                                    </div>
+                                                    <div class="medewerkers-content-wrapper status">
+                                                        <div class="label label-small">Status</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="medewerkers-outer" id="medewerkers-outer">
+                                                <div class="medewerkers-inner">
+                                                    <div class="medewerker-item-outer-flex">
+                                                        <div class="medewerkers-item-flex">
+                                                            <div class="medewerkers-content-wrapper">
+                                                                <div class="gebruiker-img-circle"></div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-name-wrapper">
+                                                                <div class="paragraph-content">Karlijn de Jonge</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-klant-wrapper">
+                                                                <div class="paragraph-content">Eneco</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="paragraph-content">160</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="paragraph-content">48</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper status">
+                                                                <img src="../img/status-bad.svg" alt="" class="icon-small status-bad">
+                                                                <img src="../img/status-good.svg" alt="" class="icon-small status-good">
+                                                            </div>
+                                                        </div>
+                                                        <div class="medewerker-tools-wrapper">
+                                                            <div class="circle-button edit-button"></div>
+                                                            <div class="circle-button delete-button"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Dashboard urendeclaraties -->
+                                <div id="admin-dashboard-uren" class="content-wrapper none-start">
+                                    <div class="main-header-flex">
+                                        <div class="gebruiker-header">
+                                            <h1 class="h1 no-margin">Urendeclaraties</h1>
+                                        </div>
+                                        <div onclick="openGebruikerPopup('admin-urendeclaratie-toevoegen')" class="circle-button add-button"></div>
+                                    </div>
+                                    <div class="content-sections-wrapper">
+                                        <div class="content-section">
+                                            <div class="labels-wrapper">
+                                                <div class="uren-declaraties-flex">
+                                                    <div class="medewerkers-content-wrapper"></div>
+                                                    <div class="medewerkers-content-wrapper medewerker-name-wrapper">
+                                                        <div class="label label-small">Naam</div>
+                                                    </div>
+                                                    <div class="medewerkers-content-wrapper medewerker-klant-wrapper">
+                                                        <div class="label label-small">Klant</div>
+                                                    </div>
+                                                    <div class="medewerkers-content-wrapper medewerker-datum-wrapper">
+                                                        <div class="label label-small">Maand</div>
+                                                    </div>
+                                                    <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                        <div class="label label-small">Uren</div>
+                                                    </div>
+                                                    <div class="medewerkers-content-wrapper medewerker-status-lang-wrapper">
+                                                        <div class="label label-small">Status Mei</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="alle-urendeclaraties">
+                                                <div class="medewerkers-inner">
+                                                    <div class="medewerker-item-outer-flex" style="margin-bottom: 15px;">
+                                                        <div onclick = "openGebruikerTab('admin-dashboard-urenformulier-single')" class="medewerkers-item-flex">
+                                                            <div class="medewerkers-content-wrapper">
+                                                                <div class="gebruiker-img-circle"></div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-name-wrapper">
+                                                                <div class="paragraph-content">Karlijn de Jonge</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-klant-wrapper">
+                                                                <div class="paragraph-content">Eneco</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper maand-wrapper">
+                                                                <div class="paragraph-content">Januari</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="paragraph-content">122</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-status-lang-wrapper">
+                                                                <div class="paragraph-content">Afgekeurd</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Dashboard bedrijven -->
+                                <div id="admin-dashboard-opdrachtgevers" class="content-wrapper none-start">
+                                    <div class="main-header-flex">
+                                        <div class="gebruiker-header">
+                                            <h1 class="h1 no-margin">Opdrachtgevers</h1>
+                                        </div>
+                                        <div onclick="openGebruikerPopup('admin-opdrachtgever-toevoegen')" class="circle-button add-button"></div>
+                                    </div>
+                                    <div class="content-sections-wrapper">
+                                        <div class="content-section">
+                                            <div class="labels-wrapper">
+                                                <div class="uren-declaraties-flex">
+                                                    <div class="medewerkers-content-wrapper"></div>
+                                                    <div class="medewerkers-content-wrapper medewerker-klant-wrapper">
+                                                        <div class="label label-small">Klant</div>
+                                                    </div>
+                                                    <div class="medewerkers-content-wrapper medewerker-name-wrapper">
+                                                        <div class="label label-small">Email</div>
+                                                    </div>
+                                                    <div class="medewerkers-content-wrapper medewerker-email-wrapper">
+                                                        <div class="label label-small">Plaats</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="medewerkers-outer" id="opdrachtgevers-outer">
+                                                <div class="medewerkers-inner">
+                                                    <div class="medewerker-item-outer-flex">
+                                                        <div class="medewerkers-item-flex">
+                                                            <div class="medewerkers-content-wrapper">
+                                                                <div class="gebruiker-img-circle"></div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-klant-wrapper">
+                                                                <div class="paragraph-content">Eneco</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-name-wrapper">
+                                                                <div class="paragraph-content">Karlijn de Jonge</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-email-wrapper">
+                                                                <div class="paragraph-content">karlijn@eneco.nl</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="medewerker-tools-wrapper">
+                                                            <div class="circle-button edit-button"></div>
+                                                            <div class="circle-button delete-button"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dashboard Medewerker Single -->
+                                <div id="admin-dashboard-medewerker-single" class="content-wrapper none-start">
+                                    <div class="main-header-flex">
+                                        <div class="gebruiker-header">
+                                            <h1 class="h1 no-margin">Naam medewerker</h1>
+                                        </div>
+                                        <div onclick="" class="circle-button"></div>
+                                    </div>
+                                    <div class="content-sections-wrapper">
+                                        <div class="content-section">
+                                            <!-- gegevens medewerker -->
+                                            <div class="content-section">
+                                                <h2>Gegevens</h2>
+                                                <div class="gebruiker-gegevens-flex">
+                                                    <div class="flex-item-block">
+                                                        <h3>NAW gegevens</h3>
+                                                        <div class="block-items-flex">
+                                                            <div class="gegevens-item">
+                                                                <div class="label">Titel</div>
+                                                                <div class="paragraph-content">mevr.</div>
+                                                            </div>
+                                                            <div class="gegevens-item">
+                                                                <div class="label">Voornaam</div>
+                                                                <div class="paragraph-content">Paul</div>
+                                                            </div>
+                                                            <div class="gegevens-item">
+                                                                <div class="label">Achternaam</div>
+                                                                <div class="paragraph-content">van Veen</div>
+                                                            </div>
+                                                            <div class="gegevens-item">
+                                                                <div class="label">Adres</div>
+                                                                <div class="paragraph-content">Steenstraat 12</div>
+                                                            </div>
+                                                            <div class="gegevens-item">
+                                                                <div class="label">Plaatsnaam</div>
+                                                                <div class="paragraph-content">Harderwijk</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-item-block">
+                                                        <h3>Contactgegevens</h3>
+                                                        <div class="block-items-flex">
+                                                        <div class="gegevens-item">
+                                                            <div class="label">E-mailadres</div>
+                                                            <div class="paragraph-content">paul@qien.nl</div>
+                                                        </div>
+                                                        <div class="gegevens-item">
+                                                            <div class="label">Telefoonnummer</div>
+                                                            <div class="paragraph-content">0612345678</div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-item-block">
+                                                        <h3>Werkzaam bij</h3>
+                                                        <div class="block-items-flex">
+                                                            <div class="gegevens-item">
+                                                                <div class="label">Bedrijf</div>
+                                                                <div class="paragraph-content">Qien</div>
+                                                            </div>
+                                                            <div class="gegevens-item">
+                                                                <div class="label">Datum in dienst</div>
+                                                                <div class="paragraph-content">12-01-2016</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- urendeclaraties medewerker -->
+                                            <div class="content-section">
+                                                <div class="labels-wrapper">
+                                                    <div class="uren-declaraties-flex">
+                                                        <div class="medewerkers-content-wrapper"></div>
+                                                        <div class="medewerkers-content-wrapper medewerker-name-wrapper">
+                                                            <div class="label label-small">Naam</div>
+                                                        </div>
+                                                        <div class="medewerkers-content-wrapper medewerker-klant-wrapper">
+                                                            <div class="label label-small">Klant</div>
+                                                        </div>
+                                                        <div class="medewerkers-content-wrapper medewerker-datum-wrapper">
+                                                            <div class="label label-small">Maand</div>
+                                                        </div>
+                                                        <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                            <div class="label label-small">Uren</div>
+                                                        </div>
+                                                        <div class="medewerkers-content-wrapper medewerker-status-lang-wrapper">
+                                                            <div class="label label-small">Status Mei</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="alle urendeclaraties-medewerker">
+                                                <div class="medewerker-item-outer-flex">
+                                                    <a href="#" class="medewerkers-item-flex">
+                                                        <div class="medewerkers-content-wrapper">
+                                                            <div class="gebruiker-img-circle"></div>
+                                                        </div>
+                                                        <div class="medewerkers-content-wrapper medewerker-name-wrapper">
+                                                            <div class="paragraph-content">Karlijn de Jonge</div>
+                                                        </div>
+                                                        <div class="medewerkers-content-wrapper medewerker-klant-wrapper">
+                                                            <div class="paragraph-content">Eneco</div>
+                                                        </div>
+                                                        <div class="medewerkers-content-wrapper maand-wrapper">
+                                                            <div class="paragraph-content">Januari</div>
+                                                        </div>
+                                                        <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                            <div class="paragraph-content">122</div>
+                                                        </div>
+                                                        <div class="medewerkers-content-wrapper medewerker-status-lang-wrapper">
+                                                            <div class="paragraph-content">Afgekeurd</div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dashboard Opdrachtgever Single -->
+                                <div id="admin-dashboard-opdrachtgever-single" class="content-wrapper none-start">
+                                    <!-- ++wordt geladen vanuit JS++ -->
+                                </div>
+
+                                <!-- Dashboard Urenformulier Single -->
+                                <div id="admin-dashboard-urenformulier-single" class="content-wrapper none-start">
+                                    <div class="main-header-flex">
+                                        <div class="gebruiker-header">
+                                            <h1 class="h1 no-margin">Urendeclaraties / Januari, Karlijn de Jonge</h1>
+                                        </div>
+                                        <div class="medewerker-header-tools">
+                                            <div>Status afgekeurd</div>
+                                        </div>
+                                    </div>
+                                    <div class="content-sections-wrapper">
+                                        <div class="urendeclaratie-flex">
+                                            <div class="urendeclaratie-inhoud-wrapper">
+                                                <div class="rows-wrapper">
+                                                    <div class="labels-wrapper">
+                                                        <div class="uren-declaraties-flex">
+                                                            <div class="medewerkers-content-wrapper datum-small-wrapper">
+                                                                <div class="label label-small">Datum</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="label label-small">Opdracht</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="label label-small">Overwerk</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="label label-small">Verlof</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="label label-small">Ziek</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="label label-small">Training</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="label label-small">Overig</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-verklaring-wrapper">
+                                                                <div class="label label-small">Verklaring overig</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="medewerker-item-outer-flex">
+                                                        <div class="medewerkers-item-flex">
+                                                            <div class="medewerkers-content-wrapper datum-small-wrapper">
+                                                                <div class="paragraph-content">1-Mei</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="paragraph-content">8</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="paragraph-content">0</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="paragraph-content">0</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="paragraph-content">0</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="paragraph-content">0</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-uren-wrapper">
+                                                                <div class="paragraph-content">2</div>
+                                                            </div>
+                                                            <div class="medewerkers-content-wrapper medewerker-verklaring-wrapper">
+                                                                <div class="paragraph-content">lees verklaring</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="uren-declaratie-side-info-wrapper">
+                                                <div class="uren-declaratie-side-info-item">
+                                                    <div class="label">Mogelijke acties</div>
+                                                    <div class="acties-link-text">Openzetten</div>
+                                                    <div class="acties-link-text">Andere acties?</div>
+                                                </div>
+                                                <div class="uren-declaratie-side-info-item">
+                                                    <div class="label">Berichten bij deze urendeclaratie</div>
+                                                    <div class="acties-link-text">2 gekoppelde berichten</div>
+                                                </div>
+                                                <div class="uren-declaratie-side-info-item">
+                                                    <div class="label margin-bottom">Medewerker:</div>
+                                                    <div class="medewerkers-item-flex">
+                                                        <div class="medewerkers-content-wrapper">
+                                                            <div class="gebruiker-img-circle"></div>
+                                                        </div>
+                                                        <div class="medewerkers-content-wrapper medewerker-name-wrapper">
+                                                            <div class="paragraph-content">Karlijn de Jonge</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="uren-declaratie-side-info-item">
+                                                    <div class="label margin-bottom">Contactpersoon:</div>
+                                                    <div class="medewerkers-item-flex">
+                                                        <div class="medewerkers-content-wrapper">
+                                                            <div class="gebruiker-img-circle"></div>
+                                                        </div
+                                                        ><div class="medewerkers-content-wrapper medewerker-name-wrapper">
+                                                            <div class="paragraph-content">Karlijn de Jonge</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- Popups -->
+                            <!--Popup-addMedewerker-->
+                            <div id="admin-gebruiker-toevoegen" class="popup-background">
+                                <div class="popup-wrapper">
+                                    <h2>Nieuwe medewerker</h2>
+                                    <form id="medewerker-toevoegen" name="medewerker-toevoegen" class="popup-form">
+                                        <div class="form-rows-wrapper">
+                                            <div class="form-flex">
+                                                <div class="form-item small">
+                                                    <label for="aanhef" class="label form-label">Aanhef</label>
+                                                    <select id="aanhef" name="aanhef" data-name="Aanhef" required="" class="text-field select-field">
+                                                        <option value="dhr">dhr.</option>
+                                                        <option value="mvr">mvr.</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="voornaam" class="label form-label">Voornaam</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="voornaam" data-name="Voornaam" id="voornaam">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="achternaam" class="label form-label">Achternaam</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="achternaam" data-name="Achternaam" id="achternaam">
+                                                </div>
+                                            </div>
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="email" class="label form-label">E-mailadres</label>
+                                                    <input type="email" class="text-field" maxlength="256" name="email" data-name="Email" id="email" required="">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="telefoon" class="label form-label">Telefoonnummer</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="telefoon" data-name="Telefoon" id="telefoon">
+                                                </div>
+                                            </div>
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="adres" class="label form-label">Adres</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="adres" data-name="Adres" id="adres" required="">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="plaats" class="label form-label">Plaats</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="plaats" data-name="Plaats" id="plaats" required="">
+                                                </div>
+                                            </div>
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="adres" class="label form-label">Adres</label>
+                                                    <select id="add-medewerker-opdrachtgever-select" name="aanhef" data-name="Aanhef" required="" class="text-field select-field">
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="popup-form-buton-wrapper">
+                                            <input type="button" value="Toevoegen" data-wait="Please wait..." class="button accent-1" onclick="addMedewerkertoDB()">
+                                        </div>
+                                    </form>
+                                    <div onclick="closeGebruikerPopup()" class="close-button"></div>
+                                </div>
+                            </div>
+
+                            <!--Popup-addUrendeclaratie-->
+                            <div id="admin-urendeclaratie-toevoegen" class="popup-background">
+                                <div class="popup-wrapper">
+                                    <h2>Nieuwe Maand openzetten</h2>
+                                    <form id="maand-toevoegen" name="maand-toevoegen" class="popup-form">
+                                        <select id="maandkeuze" name="maandkeuze" data-name="Maand" required="" class="text-field select-field">
+                                            <option value="Januari">Januari</option>
+                                            <option value="Februari">Februari</option>
+                                            <option value="Maart">Maart</option>
+                                            <option value="April">April</option>
+                                            <option value="Mei">Mei</option>
+                                            <option value="Juni">Juni</option>
+                                            <option value="Juli">Juli</option>
+                                            <option value="Augustus">Augustus</option>
+                                            <option value="September">September</option>
+                                            <option value="Oktober">Oktober</option>
+                                            <option value="November">November</option>
+                                            <option value="December">December</option>
+                                        </select>
+                                        <div class="popup-form-buton-wrapper">
+                                            <input type="button" value="Maand toevoegen" data-wait="Please wait..." class="button accent-1" onclick="addUrendeclaratieToAllMedewerkers()">
+                                        </div>
+                                    </form>
+                                    <div onclick="closeGebruikerPopup()" class="close-button"></div>
+                                </div>
+                            </div>
+
+                            <!--Popup-addOpdrachtgever-->
+                            <div id="admin-opdrachtgever-toevoegen" class="popup-background">
+                                <div class="popup-wrapper">
+                                    <h2>Opdrachtgever toevoegen</h2>
+                                    <form id="opdrachtgever-toevoegen" name="opdrachtgever-toevoegen" class="popup-form">
+                                        <div class="form-rows-wrapper">
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="bedrijfsnaam" class="label form-label">Bedrijfsnaam</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="bedrijfsnaam" data-name="Bedrijfsnaam" id="bedrijfsnaam">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="plaatsOG" class="label form-label">Plaats</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="plaats" data-name="Plaats" id="plaatsOG">
+                                                </div>
+                                            </div>
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="adresOG" class="label form-label">Adres</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="adres" data-name="Adres" id="adresOG" required="">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="postcodeOG" class="label form-label">Postcode</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="postcode" data-name="Postcode" id="postcodeOG">
+                                                </div>
+                                            </div>
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="emailOG" class="label form-label">Email</label>
+                                                    <input type="email" class="text-field" maxlength="256" name="email" data-name="Email" id="emailOG" required="">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="telefoonnummerOG" class="label form-label">Telefoonnummer</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="telefoonnummer" data-name="Telefoonnummer" id="telefoonnummerOG" required="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="popup-form-buton-wrapper">
+                                            <input type="button" value="Toevoegen" data-wait="Please wait..." class="button accent-1" onclick="addOpdrachtgeverToDB()">
+                                        </div>
+                                    </form>
+                                    <div onclick="closeGebruikerPopup()" class="close-button"></div>
+                                </div>
+                            </div>
+
+                            <!--Popup-addContactpersoon-->
+                            <div id="admin-contactpersoon-toevoegen" class="popup-background">
+                                <div class="popup-wrapper">
+                                    <h2>Contactpersoon toevoegen</h2>
+                                    <form id="contactpersoon-toevoegen" name="contactpersoon-toevoegen" class="popup-form">
+                                        <div class="form-rows-wrapper">
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="contactpersoon-add-voornaam" class="label form-label">Voornaam</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="voornaam" data-name="voornaam" id="contactpersoon-add-voornaam">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="contactpersoon-add-achternaam" class="label form-label">Achternaam</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="achternaam" data-name="achternaam" id="contactpersoon-add-achternaam">
+                                                </div>
+                                            </div>
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="contactpersoon-add-email" class="label form-label">Email</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="email" data-name="email" id="contactpersoon-add-email" required="">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="contactpersoon-add-telefoonnummer" class="label form-label">Telefoonnummer</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="telefoonnummer" data-name="Telefoonnummer" id="contactpersoon-add-telefoonnummer" required="">
+                                                </div>
+                                            </div>
+                                            <input type="hidden"  id="contactpersoon-add-opdrachtgeverid" required="" value="">
+                                        </div>
+                                        <div class="popup-form-buton-wrapper">
+                                            <input type="button" value="Toevoegen" data-wait="Please wait..." class="button accent-1" onclick="addContactpersoonToDB(id)">
+                                        </div>
+                                    </form>
+                                    <div onclick="closeGebruikerPopup()" class="close-button"></div>
+                                </div>
+                            </div>
+
+                            <!-- wijzig medewerker -->
+                            <div id="admin-dashboard-gebruiker-wijzigen" class="popup-background">
+                                <div class="popup-wrapper">
+                                    <h2>Aanpassen: naam medewerker</h2>
+                                    <form id="medewerker-wijzigen" name="medewerker-wijzigen" class="popup-form">
+                                        <div class="form-rows-wrapper">
+                                            <div class="form-flex">
+                                                <div class="form-item small">
+                                                    <label for="aanhef" class="label form-label">Aanhef</label>
+                                                    <select id="aanhef" name="aanhef" data-name="Aanhef" required="" class="text-field select-field">
+                                                        <option value="dhr">dhr.</option>
+                                                        <option value="mvr">mvr.</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="voornaam" class="label form-label">Voornaam</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="voornaam" data-name="Voornaam" id="voornaam">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="achternaam" class="label form-label">Achternaam</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="achternaam" data-name="Achternaam" id="achternaam">
+                                                </div>
+                                            </div>
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="email" class="label form-label">E-mailadres</label>
+                                                    <input type="email" class="text-field" maxlength="256" name="email" data-name="Email" id="email" required="">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="telefoon" class="label form-label">Telefoonnummer</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="telefoon" data-name="Telefoon" id="telefoon">
+                                                </div>
+                                            </div>
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="adres" class="label form-label">Adres</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="adres" data-name="Adres" id="adres" required="">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="plaats" class="label form-label">Plaats</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="plaats" data-name="Plaats" id="plaats" required="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="popup-form-buton-wrapper">
+                                            <input type="button" value="Toevoegen" data-wait="Please wait..." class="button accent-1" onclick="addMedewerkertoDB()">
+                                        </div>
+                                    </form>
+                                    <div onclick="closeGebruikerPopup()" class="close-button"></div>
+                                </div>
+                            </div>
+
+                             <!-- wijzig opdrachtgever -->
+                             <div id="admin-dashboard-opdrachtgever-wijzigen" class="popup-background">
+                                <div class="popup-wrapper">
+                                    <h2>Naam wijzigen</h2>
+                                    <form id="opdrachtgever-wijzigen" name="opdrachtgever-wijzigen" class="popup-form">
+                                        <div class="form-rows-wrapper">
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="bedrijfsnaam" class="label form-label">Bedrijfsnaam</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="bedrijfsnaam" data-name="Bedrijfsnaam" id="bedrijfsnaam">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="plaatsOG" class="label form-label">Plaats</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="plaats" data-name="Plaats" id="plaatsOG">
+                                                </div>
+                                            </div>
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="adresOG" class="label form-label">Adres</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="adres" data-name="Adres" id="adresOG" required="">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="postcodeOG" class="label form-label">Postcode</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="postcode" data-name="Postcode" id="postcodeOG">
+                                                </div>
+                                            </div>
+                                            <div class="form-flex">
+                                                <div class="form-item">
+                                                    <label for="emailOG" class="label form-label">Email</label>
+                                                    <input type="email" class="text-field" maxlength="256" name="email" data-name="Email" id="emailOG" required="">
+                                                </div>
+                                                <div class="form-item">
+                                                    <label for="telefoonnummerOG" class="label form-label">Telefoonnummer</label>
+                                                    <input type="text" class="text-field" maxlength="256" name="telefoonnummer" data-name="Telefoonnummer" id="telefoonnummerOG" required="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="popup-form-buton-wrapper">
+                                            <input type="button" value="Toevoegen" data-wait="Please wait..." class="button accent-1" onclick="addOpdrachtgeverToDB()">
+                                        </div>
+                                    </form>
+                                    <div onclick="closeGebruikerPopup()" class="close-button"></div>
+                                </div>
+                            </div>
+
+
+                            <!-- einde popups -->
+                        </div>    
+                    </div>
+                </div>
+
+                <!-- SIDE RECHTS -->
+                <div class="side-content-wrapper">
+                    <div class="side-section">
+                        <div class="welcome-flex">
+                            <div class="welcome-text">Hello,<span class="bold-span"> Paul</span></div>
+                            <div class="welcome-img-circle"></div>
+                        </div>
+                    </div>
+                    <div class="side-section">
+                        <div class="side-info-flex">
+                            <div class="side-info-item">
+                                <div class="label label-large">Totaal medewerkers</div>
+                                <div class="info-amount-wrapper">
+                                    <div>75</div>
+                                </div>
+                            </div>
+                            <div class="side-info-item">
+                                <div class="label label-large">Totaal bedrijven</div>
+                                <div class="info-amount-wrapper accent-1">
+                                    <div>31</div>
+                                </div>
+                            </div>
+                            <div class="side-info-item no-margin">
+                                <div class="label label-large">Uren deze week</div>
+                                <div class="info-amount-wrapper accent-2">
+                                    <div>1230</div>
+                                </div>
+                            </div>
+                            <div class="side-info-item no-margin">
+                                <div class="label label-large">Verstuurde declaraties</div>
+                                <div class="info-amount-wrapper accent-3">
+                                    <div>81%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="side-section">
+                        <h1 class="h1 side-h1">Activiteiten<br><span class="bold-span">feed</span></h1>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!--  JS LINKS HERE  -->
+    <script src="../js/admin.js" type="text/javascript"></script>
+</body>
+</html>

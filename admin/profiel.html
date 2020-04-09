@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Admin Profiel</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+    <!--  CSS LINKS HERE  -->
+    <link href="../css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="../css/main-components.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="app-wrapper">
+
+        <!--  ADMIN NAVBAR  -->
+        <div class="navbar">
+            <div class="nav-containerr">
+                <div class="content-flex"><a href="#" class="aside-wrapper aside-logo"><img src="../img/qien-logo-purple.svg" alt="Qien logo purple" class="logo"></a>
+                    <div class="main-content-wrapper">
+                        <nav role="navigation" class="nav-menu">
+                            <div class="nav-main-links-inner left">
+                                <a id="admin-dashboard-link" href="../admin/dashboard.html" class="nav-link">Dashboard</a>
+                                <a id="admin-profiel-link" href="../admin/profiel.html" class="nav-link">Profiel</a>
+                                <a id="admin-berichten-link" href="../admin/berichten.html" class="nav-link">Berichten</a>
+                            </div>
+                            <div class="nav-main-links-inner right">
+                                <div id="nav-toevoegen-dropdown" class="nav-dropdown">
+                                    <div onclick="openDropdown()" class="nav-dropdown-toggle">
+                                        <div class="inline-link">Toevoegen</div>
+                                        <div class="nav-dropdown-dots-flex">
+                                            <div class="nav-dropdown-dot"></div>
+                                            <div class="nav-dropdown-dot"></div>
+                                            <div class="nav-dropdown-dot"></div>
+                                        </div>
+                                    </div>
+                                    <nav id="nav-dropdown-toevoegen" class="nav-dropdown-list">
+                                        <a href="#" class="nav-dropdown-link">Urendeclaraties</a>
+                                        <a href="#" class="nav-dropdown-link">Medewerker</a>
+                                        <a href="#" class="nav-dropdown-link">Opdrachtgever</a>
+                                    </nav>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="side-content-wrapper nav-side-content-wrapper">
+                        <div class="nav-side-links-flex">
+                            <div class="circle-button small-circle-button edit"></div>
+                            <div class="circle-button small-circle-button edit"></div>
+                            <div class="circle-button small-circle-button edit"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--  MAIN CONTENT OUTER  -->
+        <div class="main-outer-wrapper">
+            <div class="content-flex">
+
+                <!--  ASIDE ADMIN TABS/LINKS from other page than Dash  -->
+                <aside class="aside-wrapper">
+                    <div class="aside-links-wrapper">
+                        <a onclick="openGebruikerTabFromOtherPage('admin-dashboard-medewerkers')" class="aside-link-block"></a>
+                        <a onclick="openGebruikerTabFromOtherPage('admin-dashboard-uren')" class="aside-link-block uren-aside-link"></a>
+                        <a onclick="openGebruikerTabFromOtherPage('admin-dashboard-opdrachtgevers')" class="aside-link-block opdrachtgevers-aside-link"></a>
+                    </div>
+                </aside>
+
+                <!--  MAIN CONTENT INNER  -->
+                <div class="main-content-wrapper">
+                    <div class="main-container">
+
+                        <!-- Scherm Profiel -->
+                        <div id="medewerkers-content" class="content-wrapper">
+                            <div class="main-header-flex">
+                                <div class="gebruiker-header">
+                                    <div class="gebruiker-single-img-circle"></div>
+                                    <h1 class="h1 no-margin">Paul Veen</h1>
+                                </div>
+                                <div onclick="openGebruikerPopup('gebruiker-zichzelf-aanpassen')" class="circle-button"></div>
+                            </div>
+                            <div class="content-sections-wrapper">
+                                <!-- gegevens -->
+                                <div class="content-section">
+                                    <h2>Gegevens</h2>
+                                    <div class="gebruiker-gegevens-flex">
+                                        <div class="flex-item-block">
+                                            <h3>Contactgegevens</h3>
+                                            <div class="block-items-flex">
+                                                <div class="gegevens-item">
+                                                    <div class="label">Titel</div>
+                                                    <div class="paragraph-content">mr.</div>
+                                                </div>
+                                                <div class="gegevens-item">
+                                                    <div class="label">Voornaam</div>
+                                                    <div class="paragraph-content">Paul</div>
+                                                </div>
+                                                <div class="gegevens-item">
+                                                    <div class="label">Achternaam</div>
+                                                    <div class="paragraph-content">van Veen</div>
+                                                </div>
+                                                <div class="gegevens-item">
+                                                    <div class="label">E-mailadres</div>
+                                                    <div class="paragraph-content">paul@qien.nl</div>
+                                                </div>
+                                                <div class="gegevens-item">
+                                                    <div class="label">Telefoonnummer</div>
+                                                    <div class="paragraph-content">0612321234</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- POPUPS -->
+                                <div id="gebruiker-zichzelf-aanpassen" class="popup-background">
+                                    <div class="popup-wrapper">
+                                        <h2 class="h2">Aanpassen Gegevens</h2>
+                                        <form id="admin-aanpassen" name="admin-aanpassen" class="popup-form">
+                                            <div class="form-rows-wrapper">
+                                                <div class="form-flex">
+                                                    <div class="form-item small">
+                                                        <label for="aanhef" class="label form-label">Aanhef</label>
+                                                        <select id="aanhef" name="aanhef" data-name="Aanhef" required="" class="text-field select-field">
+                                                            <option value="dhr">dhr.</option>
+                                                            <option value="mvr">mvr.</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label for="voornaam" class="label form-label">Voornaam</label>
+                                                        <input type="text" class="text-field" maxlength="256" name="voornaam" data-name="Voornaam" id="voornaam">
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label for="achternaam" class="label form-label">Achternaam</label>
+                                                        <input type="text" class="text-field" maxlength="256" name="achternaam" data-name="Achternaam" id="achternaam">
+                                                    </div>
+                                                </div>
+                                                <div class="form-flex">
+                                                    <div class="form-item">
+                                                        <label for="email" class="label form-label">E-mailadres</label>
+                                                        <input type="email" class="text-field" maxlength="256" name="email" data-name="Email" id="email" required="">
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label for="telefoon" class="label form-label">Telefoonnummer</label>
+                                                        <input type="text" class="text-field" maxlength="256" name="telefoon" data-name="Telefoon" id="telefoon">
+                                                    </div>
+                                                </div>
+                                                <div class="form-flex">
+                                                    <div class="form-item">
+                                                        <label for="datum-in-dienst" class="label form-label">Adres</label>
+                                                        <input type="text" class="text-field" maxlength="256" name="datum-in-dienst" data-name="Datum In Dienst" id="datum-in-dienst" required="">
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label for="datum-in-dienst-2" class="label form-label">Plaats</label>
+                                                        <input type="text" class="text-field" maxlength="256" name="datum-in-dienst-2" data-name="Datum In Dienst 2" id="datum-in-dienst-2" required="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="popup-form-buton-wrapper">
+                                                <input type="submit" value="Wijzigen" data-wait="Please wait..." class="button accent-1">
+                                            </div>
+                                        </form>
+                                        <div class="form-done">
+                                            <div>Bedankt jouw gegevens zijn aangepast!</div>
+                                        </div>
+                                        <div class="form-fail">
+                                            <div></div>
+                                        </div>
+                                        <div onclick="closeGebruikerPopup()" class="close-button"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SIDE RECHTS -->
+                <div class="side-content-wrapper">
+                    <div class="side-section">
+                        <div class="welcome-flex">
+                            <div class="welcome-text">Hello,<span class="bold-span"> Paul</span></div>
+                            <div class="welcome-img-circle"></div>
+                        </div>
+                    </div>
+                    <div class="side-section">
+                        <div class="side-info-flex">
+                            <div class="side-info-item">
+                                <div class="label label-large">Totaal medewerkers</div>
+                                <div class="info-amount-wrapper">
+                                    <div>75</div>
+                                </div>
+                            </div>
+                            <div class="side-info-item">
+                                <div class="label label-large">Totaal bedrijven</div>
+                                <div class="info-amount-wrapper accent-1">
+                                    <div>31</div>
+                                </div>
+                            </div>
+                            <div class="side-info-item no-margin">
+                                <div class="label label-large">Uren deze week</div>
+                                <div class="info-amount-wrapper accent-2">
+                                    <div>1230</div>
+                                </div>
+                            </div>
+                            <div class="side-info-item no-margin">
+                                <div class="label label-large">Verstuurde declaraties</div>
+                                <div class="info-amount-wrapper accent-3">
+                                    <div>81%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="side-section">
+                        <h1 class="h1 side-h1">Activiteiten<br><span class="bold-span">feed</span></h1>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+    </div>
+    <!--  JS LINKS HERE  -->
+    <script src="../js/qienapp.js" type="text/javascript"></script>
+</body>
+</html>

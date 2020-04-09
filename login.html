@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+    <!--  CSS LINKS HERE  -->
+    <link href="css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="css/main-components.css" rel="stylesheet" type="text/css">
+    <link href="css/login.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-flex-left">
+            <div class="login-header-wrapper">
+                <a href="#" class="login-logo-block"><img src="img/logo-white.svg" alt="Qien logo white" class="login-logo"></a>
+                <div class="login-header-text-wrapper">
+                    <h1 class="h1 text-white no-margin">Urendeclaratie</h1>
+                    <div class="h1-sub-text text-white">Jouw uren makkelijk en snel verstuurd</div>
+                </div>
+            </div>
+            <div class="login-img-wrapper">
+                <div class="login-img"></div>
+            </div>
+        </div>
+        <div class="login-flex-right">
+            <form action="javascript:inloggen()" id="login-form" name="login-form" data-name="login Form" class="login-form">
+                <h1 class="h1 align-center">Sign in</h1>
+                <div class="login-form-item">
+                  <label for="login-email" class="label">Email</label>
+                  <input type="email" class="text-field" maxlength="256" name="login-email" data-name="login-email" id="login-email" required>
+                </div>
+                <div class="login-form-item">
+                  <label for="login-password" class="label">Wachtwoord</label>
+                  <input type="password" class="text-field" maxlength="256" name="login-password" data-name="login-password" id="login-password" required>
+                </div>
+                <input type="submit" value="Submit" data-wait="Even geduld..." class="button background-accent-1 form-login-button">
+              </form>
+        </div>
+    </div>
+    <!--  JS LINKS HERE  -->
+    <script src="js/login.js" type="text/javascript"></script>
+</body>
+</html>
